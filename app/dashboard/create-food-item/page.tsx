@@ -46,6 +46,9 @@ const formSchema1 = z.object({
   foodCategory: z.string().min(2, {
     message: "category required.",
   }),
+  price: z.string().min(2, {
+    message: "category required.",
+  }).regex(/^\d+$/, { message: "Price must contain only digits." }),
 });
 const formSchema2 = z.object({
   category: z.string().min(2, {
@@ -91,6 +94,7 @@ export default function page() {
         const response = await createFoodItem({
           foodItem: values.foodItem,
           foodCategory: values.foodCategory,
+          price: Number(values.price),
         });
 
         if (response.success) {
@@ -157,6 +161,19 @@ export default function page() {
                             <FormLabel>Food item</FormLabel>
                             <FormControl>
                               <Input placeholder="idli." {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form1.control}
+                        name="price"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Unit Price (Applicable for bulk orders)</FormLabel>
+                            <FormControl>
+                              <Input placeholder="₹.." {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>

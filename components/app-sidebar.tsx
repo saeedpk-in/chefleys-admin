@@ -13,6 +13,7 @@ import {
   IconHelp,
   IconInnerShadowTop,
   IconListDetails,
+  IconMap2,
   IconReport,
   IconSearch,
   IconSettings,
@@ -63,6 +64,11 @@ const data = {
       title: "Tier Creation",
       url: "/dashboard/tier-creation",
       icon: IconFolder,
+    },
+    {
+      title: "Create Address Route",
+      url: "/dashboard/create-address-route",
+      icon: IconMap2,
     },
   ],
   navSecondary: [

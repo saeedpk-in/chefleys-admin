@@ -1,6 +1,7 @@
 "use server";
 // app/actions/userActions.ts
 import { connectToDatabase } from "@/lib/mongodb";
+import AddressRoute from "@/models/AddressRoute";
 import Plan from "@/models/Plan";
 import Tier from "@/models/Tier";
 import User, { IUser } from "@/models/User";
@@ -91,4 +92,30 @@ export async function updateUserById(
   }
 
   return { success: true, message: "User updated successfully!" };
+}
+export async function createAddressRoute(addressRoute: string) {
+  try {
+    // Connect to the database
+    await connectToDatabase();
+    const existingAddressRoute = await AddressRoute.findOne({ addressRoute });
+    if (existingAddressRoute) {
+      return {
+        success: false,
+        error: "This AddressRoute added earlier",
+      };
+    }
+
+    const newAddressRoute = new AddressRoute({
+      addressRoute,
+    });
+
+    // Save the new FoodCategory
+    await newAddressRoute.save();
+
+    return { success: true, message: "AddressRoute added Succussfully." };
+  } catch (error) {
+    console.log(error);
+
+    return { success: false, error: (error as Error).message };
+  }
 }

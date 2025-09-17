@@ -4,10 +4,12 @@ import { connectToDatabase } from "@/lib/mongodb";
 import FoodItem from "@/models/FoodItem";
 export async function createFoodItem({
   foodItem,
-  foodCategory
+  foodCategory,
+  price
 }: {
   foodItem:string;
   foodCategory:string;
+  price:number;
 }) {
   try {
     // Connect to the database
@@ -23,6 +25,7 @@ export async function createFoodItem({
     const newFoodItem = new FoodItem({
       foodItem,
       foodCategory,
+      price
     });
 
     // Save the new FoodItem
